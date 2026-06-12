@@ -70,6 +70,35 @@ return {
       end
     end
 
+    local function kimchi_code_toggle()
+      -- Check if terminal window is open and valid
+      if gemini_terminal_win and vim.api.nvim_win_is_valid(gemini_terminal_win) then
+        -- Close the window
+        vim.api.nvim_win_close(gemini_terminal_win, false)
+        gemini_terminal_win = nil
+        return
+      end
+
+      -- Check if we have a valid terminal buffer
+      if gemini_terminal_buf and vim.api.nvim_buf_is_valid(gemini_terminal_buf) then
+        -- Open existing terminal in horizontal split
+        vim.cmd("split")
+        gemini_terminal_win = vim.api.nvim_get_current_win()
+        vim.api.nvim_win_set_buf(gemini_terminal_win, gemini_terminal_buf)
+      else
+        -- Create new terminal in horizontal split
+        vim.cmd("split")
+        gemini_terminal_win = vim.api.nvim_get_current_win()
+        vim.cmd("terminal")
+        gemini_terminal_buf = vim.api.nvim_get_current_buf()
+
+        -- Send gemini code init command to terminal
+        local job_id = vim.b.terminal_job_id
+        if job_id then
+          vim.fn.chansend(job_id, "kimchi \n")
+        end
+      end
+    end
     -- Manual escape hatch: open an interactive Codex session in a split.
     -- Primary delegation is automatic: Claude → .claude/agents/codex.md → codex CLI
     local function codex_handoff()
@@ -88,6 +117,7 @@ return {
     -- Add keymap for Claude Code toggle
     vim.keymap.set("n", "<leader>ac", claude_code_toggle, { desc = "Toggle Claude Code Terminal" })
     vim.keymap.set("n", "<leader>ag", gemini_code_toggle, { desc = "Toggle Gemini Code Terminal" })
+    vim.keymap.set("n", "<leader>ak", kimchi_code_toggle, { desc = "Toggle Gemini Code Terminal" })
     vim.keymap.set("n", "<leader>ax", codex_handoff, { desc = "Hand off current buffer to Codex" })
     -- vim.keymap.set("n", "<leader>ac", claude_code_toggle, { desc = "Toggle Claude Code Terminal" })
     -- vim.keymap.set("n", "<leader>ag", gemini_code_toggle, { desc = "Toggle Gemini Code Terminal" })

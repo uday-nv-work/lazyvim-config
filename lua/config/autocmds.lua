@@ -2,6 +2,15 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.textwidth = 80
+    vim.opt_local.formatoptions:append("t") -- Enables auto-wrapping text at textwidth
+    vim.b.autoformat = false -- Disables LazyVim global format-on-save for MD
+  end,
+})
+
 -- Enable relative line numbers for any new buffer or window
 vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
   callback = function()
