@@ -22,12 +22,12 @@ return {
       -- Check if we have a valid terminal buffer
       if claude_terminal_buf and vim.api.nvim_buf_is_valid(claude_terminal_buf) then
         -- Open existing terminal in vertical split with reduced size
-        vim.cmd("80vsplit")
+        vim.cmd("split")
         claude_terminal_win = vim.api.nvim_get_current_win()
         vim.api.nvim_win_set_buf(claude_terminal_win, claude_terminal_buf)
       else
         -- Create new terminal with reduced size
-        vim.cmd("80vsplit")
+        vim.cmd("split")
         claude_terminal_win = vim.api.nvim_get_current_win()
         vim.cmd("terminal")
         claude_terminal_buf = vim.api.nvim_get_current_buf()
@@ -35,7 +35,7 @@ return {
         -- Send claude code init command to terminal
         local job_id = vim.b.terminal_job_id
         if job_id then
-          vim.fn.chansend(job_id, "nvm use 23 && claude  \n")
+          vim.fn.chansend(job_id, "dgc .  \n")
         end
       end
     end
@@ -65,9 +65,16 @@ return {
         -- Send gemini code init command to terminal
         local job_id = vim.b.terminal_job_id
         if job_id then
-          vim.fn.chansend(job_id, "nvm use 23 && gemini \n")
+          vim.fn.chansend(job_id, "nvm use 23 && graperoot . --gemini \n")
         end
       end
+    end
+
+    -- Manual escape hatch: open an interactive Codex session in a split.
+    -- Primary delegation is automatic: Claude → .claude/agents/codex.md → codex CLI
+    local function codex_handoff()
+      vim.cmd("split")
+      vim.cmd("terminal dg .")
     end
 
     -- Create user command
@@ -81,5 +88,13 @@ return {
     -- Add keymap for Claude Code toggle
     vim.keymap.set("n", "<leader>ac", claude_code_toggle, { desc = "Toggle Claude Code Terminal" })
     vim.keymap.set("n", "<leader>ag", gemini_code_toggle, { desc = "Toggle Gemini Code Terminal" })
+    vim.keymap.set("n", "<leader>ax", codex_handoff, { desc = "Hand off current buffer to Codex" })
+    -- vim.keymap.set("n", "<leader>ac", claude_code_toggle, { desc = "Toggle Claude Code Terminal" })
+    -- vim.keymap.set("n", "<leader>ag", gemini_code_toggle, { desc = "Toggle Gemini Code Terminal" })
+    -- vim.keymap.set("n", "<leader>ax", codex_handoff, { desc = "Hand off current buffer to Codex" })
+
+    vim.api.nvim_create_user_command("CodexHandoff", codex_handoff, {
+      desc = "Hand off current file to Codex",
+    })
   end,
 }

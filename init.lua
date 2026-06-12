@@ -1,5 +1,6 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
+require("codex").status() -- drop in to your lualine sections
 -- require("config.theme-mgr").setup()
 
 vim.opt.clipboard = "unnamedplus"

@@ -9,6 +9,9 @@ return {
       "adelarsq/image_preview.nvim",
     },
     opts = {
+      window = {
+        position = "right",
+      },
       filesystem = {
         follow_current_file = {
           enabled = true,

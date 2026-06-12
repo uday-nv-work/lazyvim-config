@@ -12,7 +12,18 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-emoji",
+      "tailwind-tools",
     },
+    opts = function()
+      return {
+        -- ...
+        formatting = {
+          format = require("lspkind").cmp_format({
+            before = require("tailwind-tools.cmp").lspkind_format,
+          }),
+        },
+      }
+    end,
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()

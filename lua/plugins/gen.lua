@@ -8,8 +8,8 @@ return {
       show_prompt = true,
     },
     keys = {
-      { "<leader>ag", ":Gen<CR>", desc = "AI Generate" },
-      { "<leader>ae", ":Gen!<CR>", desc = "AI Edit" },
+      { "<leader>aG", ":Gen<CR>", desc = "AI Generate" },
+      { "<leader>aE", ":Gen!<CR>", desc = "AI Edit" },
     },
   },
 }

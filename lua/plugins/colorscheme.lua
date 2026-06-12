@@ -277,7 +277,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "github_dark_default",
-      colorscheme = "tokyonight-moon",
+      colorscheme = "tokyonight-night",
     },
   },
 }
