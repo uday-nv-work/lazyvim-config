@@ -65,7 +65,7 @@ return {
         -- Send gemini code init command to terminal
         local job_id = vim.b.terminal_job_id
         if job_id then
-          vim.fn.chansend(job_id, "nvm use 23 && graperoot . --gemini \n")
+          vim.fn.chansend(job_id, " graperoot . --antigravity \n")
         end
       end
     end
