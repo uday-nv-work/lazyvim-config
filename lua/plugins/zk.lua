@@ -31,6 +31,9 @@ return {
           "<Cmd>ZkNew { dir = vim.fn.input('Directory: '), title = vim.fn.input('Title: ') }<CR>",
           desc = "New note in directory",
         },
+        -- Filename/template come from the "standups" group in .zk/config.toml.
+        -- Reopens today's note if it already exists.
+        { "<leader>zs", "<Cmd>ZkNew { dir = 'koinx/standups' }<CR>", desc = "Standup for today" },
         { "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = "Open notes" },
         { "<leader>zt", "<Cmd>ZkTags<CR>", desc = "Browse tags" },
         { "<leader>zf", "<Cmd>ZkNotes { match = { vim.fn.input('Search: ') } }<CR>", desc = "Find notes" },
