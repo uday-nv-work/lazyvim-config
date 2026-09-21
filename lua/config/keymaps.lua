@@ -4,10 +4,18 @@
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-keymap("i", "jk", "<Esc>")
-keymap("t", "jk", "<C-\\><C-n>")
-keymap({ "i", "n", "v", "t" }, "<C-u>", "<C-u>zz")
-keymap({ "i", "n", "v", "t" }, "<C-d>", "<C-d>zz")
+keymap("i", "jk", "<Esc>", opts)
+keymap("t", "jk", "<C-\\><C-n>", opts)
+
+-- Resize panes with Alt (Option) + Arrow keys
+keymap("n", "<S-Up>", ":resize +3<CR>", opts)
+keymap("n", "<S-Down>", ":resize -3<CR>", opts)
+keymap("n", "<S-Left>", ":vertical resize +3<CR>", opts)
+keymap("n", "<S-Right>", ":vertical resize -3<CR>", opts)
+-- Deliberately not "t": in terminal mode these don't scroll, the rhs is sent to
+-- the child process as literal keys (C-u is readline kill-line, then "zz" typed).
+keymap({ "i", "n", "v" }, "<C-u>", "<C-u>zz")
+keymap({ "i", "n", "v" }, "<C-d>", "<C-d>zz")
 
 -- vim.keymap.set("n", "<A-w>", "<leader>bd", { silent = true })
 keymap({ "i", "n", "v", "t" }, "<A-v>", function()
@@ -105,3 +113,6 @@ end)
 vim.keymap.set("n", "<leader>rr", function()
   require("config.cpp_runner").run_cpp()
 end, { desc = "Compile and Run C++" })
+
+-- Smooth scroll toggle via Snacks
+Snacks.toggle.option("smoothscroll", { name = "Smooth Scroll" }):map("<leader>uS")

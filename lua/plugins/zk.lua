@@ -1,4 +1,5 @@
 -- ~/.config/nvim/lua/plugins/zk.lua
+
 return {
   {
     "zk-org/zk-nvim",
@@ -37,8 +38,15 @@ return {
         { "<leader>zo", "<Cmd>ZkNotes { sort = { 'modified' } }<CR>", desc = "Open notes" },
         { "<leader>zt", "<Cmd>ZkTags<CR>", desc = "Browse tags" },
         { "<leader>zf", "<Cmd>ZkNotes { match = { vim.fn.input('Search: ') } }<CR>", desc = "Find notes" },
+        { "<leader>zs", "<Cmd>ZkNew { dir =  'koinx/standups' }<CR>", desc = "Standup for   today" },
         { "<leader>zb", "<Cmd>ZkBacklinks<CR>", desc = "Show backlinks" },
         { "<leader>zl", "<Cmd>ZkLinks<CR>", desc = "Show links" },
+        -- Add this to your Neovim config
+        {
+          "<leader>zB",
+          "<Cmd>ZkNew { group = 'Business', template = 'business-book.md' }<CR>",
+          { desc = "New Business Note" },
+        },
         { "<leader>zi", "<Cmd>ZkInsertLink<CR>", desc = "Insert link", mode = { "n", "v" } },
         -- Add tech word to dictionary when on it
         { "zg", desc = "Add word to dictionary" },

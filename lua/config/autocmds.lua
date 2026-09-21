@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.textwidth = 80
     vim.opt_local.formatoptions:append("t") -- Enables auto-wrapping text at textwidth
-    vim.b.autoformat = false -- Disables LazyVim global format-on-save for MD
+    vim.b.autoformat = true -- Disables LazyVim global format-on-save for MD
   end,
 })
 
@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.opt.equalalways = false
+vim.opt.equalalways = true
 
 --  Adds highlighting for yanky on theme change
 vim.api.nvim_create_autocmd("ColorScheme", {
@@ -62,7 +62,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- ============================================================================
 -- Configuration
 local git_auto_sync_config = {
-  repo_path = vim.fn.expand("~/dev/notes"),
+  repo_path = vim.fn.expand("~/dev/dev/notes"),
   commit_message_format = "Auto-sync: %s", -- %s = relative filename
   notify_on_success = true, -- Set to true to see success notifications
   notify_on_error = true, -- Show warnings when sync fails

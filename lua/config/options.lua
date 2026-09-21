@@ -4,11 +4,6 @@
 
 vim.o.equalalways = false
 
--- Enable spell checking for markdown files
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "text" },
-  callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = "en_us"
-  end,
-})
+-- Enable spell checking globally
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
